@@ -1,0 +1,41 @@
+.App {
+  --primary-text-color: black;
+  --secondary-text-color: white;
+  --primary-color: tomato;
+  --secondary-color: orange;
+  height: 100%;
+}
+
+@font-face {
+  font-family: 'Bangers';
+  src: local('Bangers'), url(../public/Bangers.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Chopin-Trial-Medium';
+  src: local('Chopin-Trial-Medium'), url(../public/Chopin-Trial-Medium.ttf) format('opentype');
+}
+
+.list-padding {
+  padding-top: 10px;
+}
+
+.recipes-list-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw; /* Full width of viewport */
+  height: 100vh; /* Full height of viewport */
+}
+
+.recipe-container {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid var(--primary-color);
+  max-width: 500px;
+}
+
+.recipe-headers {
+  text-align: center;
+  color: var(--primary-color); /* Use similar text color */
+  font-family: 'Bangers', sans-serif;
+}
