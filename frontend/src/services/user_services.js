@@ -21,7 +21,7 @@ export const signup = async (username, email, password) => {
     },
     body: JSON.stringify(requestData)
   };
-  console.log(`Request options are ${requestOptions}`);
+  console.log(`Request options are`, JSON.stringify(requestOptions));
 
   const response = await fetch(BACKEND_URL, requestOptions);
   console.log(`Fetch request pass`);
