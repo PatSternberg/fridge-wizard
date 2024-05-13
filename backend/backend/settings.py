@@ -37,13 +37,13 @@ TEST_DB_NAME = os.getenv('TEST_DB_NAME')
 print("TEST_DB_NAME =", os.getenv('TEST_DB_NAME'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') == 'True'
+DEBUG = os.getenv('DEBUG') == 'False'
 print("DEBUG_STATUS =", os.getenv('DEBUG'))
 
 # Define the port on which Django will run
 PORT = 8000
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://localhost:3000/', 'https://127.0.0.1/',  'fridge-hero.onrender.com', 'https://fridge-hero.onrender.com', 'fridge-hero-me5u.onrender.com', 'https://fridge-hero-me5u.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://localhost:3000/', 'https://127.0.0.1/',  'fridge-wizard.onrender.com', 'https://fridge-wizard.onrender.com', 'fridgewizard.onrender.com', 'https://fridgewizard.onrender.com']
 
 # Application definition
 

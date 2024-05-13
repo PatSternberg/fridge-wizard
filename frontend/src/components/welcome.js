@@ -8,7 +8,7 @@ export default function Welcome({ onSignUpClick, onLogInClick, }) {
   return (
     <div className='welcome-container'>
       <h2>Become a</h2>
-      <h1>Fridge Hero</h1>
+      <h1>Fridge Wizard</h1>
       <h2>today</h2>
       <div>
         <button
