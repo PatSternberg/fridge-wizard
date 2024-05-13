@@ -43,7 +43,7 @@ print("DEBUG_STATUS =", os.getenv('DEBUG'))
 # Define the port on which Django will run
 PORT = 8000
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://localhost:3000/', 'https://127.0.0.1/',  'fridge-wizard.onrender.com', 'https://fridge-wizard.onrender.com', 'fridgewizard.onrender.com', 'https://fridgewizard.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://localhost:3000/', 'https://127.0.0.1/',  'fridge-wizard.onrender.com', 'https://fridge-wizard.onrender.com/', 'fridgewizard.onrender.com', 'https://fridgewizard.onrender.com/']
 
 # Application definition
 
