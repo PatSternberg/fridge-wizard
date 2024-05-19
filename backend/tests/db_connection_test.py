@@ -1,11 +1,13 @@
 import unittest
+import os
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
 class TestDBConnection(unittest.TestCase):
     def setUp(self):
         # establish connection to MongoDB
-        self.client = MongoClient('mongodb://localhost:27017')
-        self.db = self.client['fridge_hero_test']
+        self.client = MongoClient(os.getenv('MONGODB_URI'))
+        self.db = self.client[os.getenv('TEST_DB_NAME')]
 
     def tearDown(self):
         # close connection to MongoDB
@@ -14,8 +16,8 @@ class TestDBConnection(unittest.TestCase):
     def test_Mongo_connection(self):
         try:
             # replace these values with test MongoDB details
-            client = MongoClient('mongodb://localhost:27017/')
-            db = client['fridge_hero_test']
+            client = MongoClient(os.getenv('MONGODB_URI'))
+            db = client[os.getenv('TEST_DB_NAME')]
 
             # execute a ping command to check connection
             db.command('ping')

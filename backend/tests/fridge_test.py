@@ -1,11 +1,13 @@
 import unittest
+import os
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
 class TestFridgeDocuments(unittest.TestCase):
     def setUp(self):
         # Establish connection to MongoDB
-        self.client = MongoClient('mongodb://localhost:27017')
-        self.db = self.client['fridge_hero_testing']
+        self.client = MongoClient(os.getenv('MONGODB_URI'))
+        self.db = self.client[os.getenv('TEST_DB_NAME')]
         self.collection = self.db['fridges']
 
     def tearDown(self):
