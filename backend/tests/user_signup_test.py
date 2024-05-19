@@ -5,7 +5,7 @@ class TestCreateUser(unittest.TestCase):
     def setUp(self):
         # Establish connection to MongoDB
         self.client = MongoClient('mongodb://localhost:27017')
-        self.db = self.client['fridge_hero_testing']
+        self.db = self.client['fridge_wizard_test']
         self.collection = self.db['users']
 
     def tearDown(self):

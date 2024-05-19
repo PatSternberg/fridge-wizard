@@ -12,11 +12,11 @@ pytz = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 pyjwt = "*"
-python-dotenv = "*"
 gunicorn = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
 uvicorn = "*"
 requests = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
