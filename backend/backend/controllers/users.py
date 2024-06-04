@@ -17,35 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pymongo import MongoClient
 import json
 from bson.objectid import ObjectId
-
-class PasswordValidator:
-    def __init__(self, min_length=8):
-        self.min_length = min_length
-
-    def validate(self, password, User=None):
-        if len(password) < self.min_length:
-            raise ValidationError(
-                ("This password must contain at least %(min_length)d characters."),
-                code="password_too_short",
-                params={"min_length": self.min_length},
-            )
-
-        special_characters = "!@#$%^&*()-_+={}[]|\:"
-
-        if not any(char in special_characters for char in password):
-            raise ValidationError(
-                ("This password must contain at least one special character."),
-                code="password_no_special_character",
-            )
-
-
-class EmailValidator:
-    def validate(self, email, user=None):
-        if not re.match(r'^[\w\.-]+@[\w\.-]+$', email):
-            raise ValidationError(
-                ("Invalid email format."),
-                code="invalid_email_format",
-            )
+from backend.backend.middleware.validator import Validator
 
 def generate_token(user_id):
     payload = {
@@ -64,15 +36,15 @@ def signup(request): # Disables CSRF protection for this view
         password = data.get('password')
 
         # Initialize validators
-        password_validator = PasswordValidator()
-        email_validator = EmailValidator()
+        validator = Validator()
 
         try:
             # Validate password
-            password_validator.validate(password)
+            validator.validate_password(password)
+            print("Password validated successfully")
             # Validate email
-            email_validator.validate(email)
-            print("Email validation success")
+            validator.validate_email(email)
+            print("Email validated successfully")
 
             # Get the database handle
             db, client = get_db_handle(db_name='fridge_hero',
