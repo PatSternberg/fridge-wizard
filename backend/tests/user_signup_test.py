@@ -1,9 +1,10 @@
 import unittest
 import os
-from dotenv import load_dotenv
+import django
 from pymongo import MongoClient
 
-load_dotenv()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+django.setup()
 
 class TestCreateUser(unittest.TestCase):
     def setUp(self):
@@ -26,10 +27,10 @@ class TestCreateUser(unittest.TestCase):
             "email" : "someEmail1"
         }
 
-        # add the fridge document to the DB
+        # add the new user document to the DB
         self.collection.insert_one(user_data)
 
-        # retrieve the fridge document from DB
+        # retrieve user document from DB
         retrieved_document = self.collection.find_one({"_id": "someId"})
 
         # Assert that the retrieved document matches the test document

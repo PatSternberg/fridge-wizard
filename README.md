@@ -51,3 +51,24 @@ The outcome of each test will be printed in the terminal console.
 
 ### Building for production
 TK
+
+### Test coverage statistics
+## BE
+
+| File                          | Test files                             | Coverage |
+|-------------------------------|----------------------------------------|----------|
+|                               |db_connection_test.py                   |N/A       |
+|backend/utility/db_handlers.py |db_handler_test.py                      |1/1   100%|
+|backend/controllers/users.py   |user_signup_test.py, user_login_test.py |2/3    66%|
+|backend/auth/auth.py           |token_test.py                           |1/3    33%|
+|           |           |           |
+|           |           |           |
+|           |           |           |
+|           |           |           |
+|           |           |           |
+|           |           |           |
+|           |           |           |
+|           |           |           |
+
+
+
