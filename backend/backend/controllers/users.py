@@ -46,7 +46,6 @@ class EmailValidator:
                 code="invalid_email_format",
             )
 
-
 def generate_token(user_id):
     payload = {
         'user_id': str(user_id),
@@ -54,12 +53,10 @@ def generate_token(user_id):
     }
     return jwt.encode(payload, settings.JWT_SECRET, algorithm='HS256')
 
-
 def get_db_handle(db_name, host, port, username, password):
     client = MongoClient(host=host, port=int(port), username=username, password=password)
     db_handle = client[db_name]
     return db_handle, client
-
 
 @csrf_exempt
 def signup(request): # Disables CSRF protection for this view
@@ -123,8 +120,6 @@ def signup(request): # Disables CSRF protection for this view
             return JsonResponse({'error': f'Something went wrong: {str(e)}'}, status=500)
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
-
-
 
 @csrf_exempt
 def login(request):

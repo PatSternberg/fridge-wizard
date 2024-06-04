@@ -26,10 +26,10 @@ class TestCreateUser(unittest.TestCase):
             "email" : "someEmail1"
         }
 
-        # add the fridge document to the DB
+        # add the new user document to the DB
         self.collection.insert_one(user_data)
 
-        # retrieve the fridge document from DB
+        # retrieve user document from DB
         retrieved_document = self.collection.find_one({"_id": "someId"})
 
         # Assert that the retrieved document matches the test document
