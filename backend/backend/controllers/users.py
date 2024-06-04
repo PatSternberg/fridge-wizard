@@ -18,7 +18,7 @@ from pymongo import MongoClient
 import json
 from bson.objectid import ObjectId
 from backend.middleware.validator import Validator
-from backend.auth.auth import generate_token
+from auth.auth import generate_token
 
 @csrf_exempt
 def signup(request): # Disables CSRF protection for this view
