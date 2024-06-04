@@ -1,11 +1,12 @@
 import unittest
 import os
-from dotenv import load_dotenv
+import django
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 import jwt
 
-load_dotenv()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+django.setup()
 
 class TestUserLogin(unittest.TestCase):
     def setUp(self):

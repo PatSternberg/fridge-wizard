@@ -46,4 +46,4 @@ def generate_token(user_id):
         'exp': datetime.utcnow() + timedelta(minutes=10)
     }
     token = jwt.encode(payload, settings.JWT_SECRET, algorithm='HS256')
-    return token.decode('utf-8')
+    return token

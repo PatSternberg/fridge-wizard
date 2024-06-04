@@ -1,7 +1,11 @@
 # file: backend/backend/tests/db_connection_test.py
 import unittest
 import os
+import django
 from pymongo import MongoClient
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+django.setup()
 
 class TestMongoDBConnection(unittest.TestCase):
     def setUp(self):

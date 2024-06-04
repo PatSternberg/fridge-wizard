@@ -1,11 +1,12 @@
 # file: ./tests/db_handler_test.py
 import unittest
 import os
-from dotenv import load_dotenv
+import django
 from pymongo import MongoClient
 from utility.db_handler import DBHandler
 
-load_dotenv()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+django.setup()
 
 class TestDBHandler(unittest.TestCase):
     def setUp(self):

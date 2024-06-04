@@ -1,7 +1,10 @@
 import unittest
 import os
-from dotenv import load_dotenv
+import django
 from pymongo import MongoClient
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+django.setup()
 
 class TestFridgeDocuments(unittest.TestCase):
     def setUp(self):

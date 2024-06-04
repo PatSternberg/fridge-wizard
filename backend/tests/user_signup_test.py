@@ -1,9 +1,10 @@
 import unittest
 import os
-from dotenv import load_dotenv
+import django
 from pymongo import MongoClient
 
-load_dotenv()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+django.setup()
 
 class TestCreateUser(unittest.TestCase):
     def setUp(self):

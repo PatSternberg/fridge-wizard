@@ -58,9 +58,9 @@ TK
 | File                          | Test files                             | Coverage |
 |-------------------------------|----------------------------------------|----------|
 |                               |db_connection_test.py                   |N/A       |
-|backend/utility/db_handlers.py |db_handler_test.py                      |10/10     |
-|backend/controllers/users.py   |user_signup_test.py, user_login_test.py |110/195   |
-|           |           |           |
+|backend/utility/db_handlers.py |db_handler_test.py                      |1/1   100%|
+|backend/controllers/users.py   |user_signup_test.py, user_login_test.py |2/3    66%|
+|backend/auth/auth.py           |token_test.py                           |1/3    33%|
 |           |           |           |
 |           |           |           |
 |           |           |           |
