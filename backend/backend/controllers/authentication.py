@@ -3,13 +3,12 @@ from django.views.decorators.csrf import csrf_exempt
 from pymongo import MongoClient
 import json
 from bson.objectid import ObjectId  # Import ObjectId for working with MongoDB ObjectIDs
-from ..lib.token import generate_token  
-
+from ..lib.token import generate_token
+from utility.db_handler import DBHandler
 
 # we dont' have a Django model for user data,
 # won't be able to directly access the user data using Django's 
 # built-in User model. I add get_db_handle in authentication 
-
 
 def get_db_handle(db_name, host, port, username, password):
     client = MongoClient(host=host, port=int(port), username=username, password=password)
@@ -23,7 +22,11 @@ def create_token(request):
         username = data.get('username')
         password = data.get('password')
 
-        db, client = get_db_handle(db_name='fridge-hero', host='localhost', port=27017, username='', password='')
+        # Initialize DBHandler
+        db_handler = DBHandler()
+
+        # Get the database handle
+        db, client = db_handler.get_db_handle(db_name='fridge-hero', host='localhost', port=27017, username='', password='')
         users_collection = db['users']
 
         # Find the user by username and password

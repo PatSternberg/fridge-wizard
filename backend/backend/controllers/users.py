@@ -3,7 +3,7 @@ import re
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.http import JsonResponse
-from utility.db_handler import get_db_handle
+from utility.db_handler import DBHandler
 
 # from django.contrib.auth.models import User
 
@@ -35,8 +35,11 @@ def signup(request): # Disables CSRF protection for this view
         email = data.get('email')
         password = data.get('password')
 
-        # Initialize validators
+        # Initialize validator
         validator = Validator()
+
+        # Initialize DBHandler
+        db_handler = DBHandler()
 
         try:
             # Validate password
@@ -47,7 +50,7 @@ def signup(request): # Disables CSRF protection for this view
             print("Email validated successfully")
 
             # Get the database handle
-            db, client = get_db_handle(db_name='fridge_hero',
+            db, client = db_handler.get_db_handle(db_name='fridge_hero',
                                        host='localhost',
                                        port=27017,
                                        username='',
@@ -96,8 +99,11 @@ def login(request):
         email = data.get('email')
         password = data.get('password')
 
+        # Initialize DBHandler
+        db_handler = DBHandler()
+
         # Get the database handle
-        db, client = get_db_handle(db_name='fridge_hero',
+        db, client = db_handler.get_db_handle(db_name='fridge_hero',
                                     host='localhost',
                                     port=27017,
                                     username='',
@@ -147,9 +153,12 @@ def get_user(request):
 
         if not user_id:
             return JsonResponse({'error': 'user_id parameter is missing'}, status=400)
+        
+        # Initialize DBHandler
+        db_handler = DBHandler()
 
         # Get the database handle
-        db, client = get_db_handle(db_name='fridge_hero',
+        db, client = db_handler.get_db_handle(db_name='fridge_hero',
                                     host='localhost',
                                     port=27017,
                                     username='',
