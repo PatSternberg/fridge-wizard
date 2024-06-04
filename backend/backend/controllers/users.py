@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pymongo import MongoClient
 import json
 from bson.objectid import ObjectId
-from middleware.validator import Validator
+from backend.middleware.validator import Validator
 from backend.auth.auth import generate_token
 
 @csrf_exempt
