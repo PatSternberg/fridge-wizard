@@ -17,14 +17,8 @@ from django.views.decorators.csrf import csrf_exempt
 from pymongo import MongoClient
 import json
 from bson.objectid import ObjectId
-from backend.backend.middleware.validator import Validator
-
-def generate_token(user_id):
-    payload = {
-        'user_id': str(user_id),
-        'exp': datetime.utcnow() + timedelta(minutes=10)
-    }
-    return jwt.encode(payload, settings.JWT_SECRET, algorithm='HS256')
+from middleware.validator import Validator
+from backend.auth.auth import generate_token
 
 @csrf_exempt
 def signup(request): # Disables CSRF protection for this view
