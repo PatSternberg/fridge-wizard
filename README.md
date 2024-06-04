@@ -58,7 +58,7 @@ TK
 | File                        | Test files                             | Coverage |
 |-----------------------------|----------------------------------------|----------|
 |                             |db_connection_test.py                   |N/A       |
-|backend/controllers/users.py |user_signup_test.py, user_login_test.py |110/218   |
+|backend/controllers/users.py |user_signup_test.py, user_login_test.py |110/214   |
 |           |           |           |
 |           |           |           |
 |           |           |           |
