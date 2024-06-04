@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from pymongo import MongoClient
-from .users import PasswordValidator, EmailValidator
+from backend.middleware.validator import Validator
 import json
 from django.conf import settings
 
@@ -52,9 +52,10 @@ def update_profile(request):
             messages = []
 
             if email and user.get('email') != email:
+
                 #Validate email
-                email_validator = EmailValidator()
-                email_validator.validate(email)
+                validator = Validator()
+                validator.validate_email(email)
                 
                 # Update email
                 user['email'] = email
@@ -62,8 +63,8 @@ def update_profile(request):
 
             if password and user.get('password') != password:
                 # Validate password
-                password_validator = PasswordValidator()
-                password_validator.validate(password)
+                validator = Validator()
+                validator.validate_password(password)
 
                 # Update password
                 user['password'] = password
