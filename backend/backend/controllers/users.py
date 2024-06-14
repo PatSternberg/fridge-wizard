@@ -1,27 +1,16 @@
-import jwt
-import re
+import json
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.http import JsonResponse
 from utility.db_handler import DBHandler
-
-# from django.contrib.auth.models import User
-
-# I don't think this is used anywhere, commented it out ?
-# user_login_test.py won't run otherwise as this file tries
-# to call the Django model for a "User"; but we made our own ? 
-# please double check / confirm
-
 from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
-from pymongo import MongoClient
-import json
 from bson.objectid import ObjectId
 from backend.middleware.validator import Validator
 from auth.auth import generate_token
 
-@csrf_exempt
-def signup(request): # Disables CSRF protection for this view
+@csrf_exempt # Disables CSRF protection for this view
+def signup(request):
     if request.method == 'POST':
         print("Received signup request:", request.body)
         data = json.loads(request.body)
