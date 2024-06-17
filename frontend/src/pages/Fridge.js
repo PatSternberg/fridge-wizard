@@ -1,3 +1,4 @@
+import React from 'react';
 import AxiosInstance from '../components/axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -139,6 +140,7 @@ export default function Fridge() {
     
   return (
       <div className='fridge-view-container'>
+        <h2>My fridge</h2>
         <div className='open-fridge-image-container'>
           <button onClick={navigateToRoot}>
           <ArrowBackIosNewIcon /><h1>FH</h1>

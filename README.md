@@ -47,7 +47,7 @@ A suite of backend and frontend tests are included with Fridge Wizard. All backe
 
 To run backend tests, `cd` to `fridge-wizard/backend`. In the CLI, execute `python -m unittest discover -v -s tests -p '*_test.py'`.
 
-To run backend tests, `cd` to `fridge-wizard/frontend`. In the CLI, execute `python -m unittest discover -v -s tests -p '*_test.py'`.
+To run frontend tests, `cd` to `fridge-wizard/frontend`. In the CLI, execute `npm test`.
 
 The outcome of each test will be printed in the terminal console.
 

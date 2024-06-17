@@ -1,3 +1,4 @@
+import React from 'react';
 import AxiosInstance from '../components/axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -39,7 +40,8 @@ export default function Recipes() {
 
     // console.log(recipes)
     return [
-    <div key="recipes-list-container" class='recipes-list-container'>
+    <div key="recipes-list-container" className='recipes-list-container'>
+        <h2>My recipes</h2>
         <button onClick={navigateToFridge}>
             <ArrowBackIosNewIcon /><h1>FH</h1>
         </button>
