@@ -5,7 +5,7 @@ import django
 import json
 from pymongo import MongoClient
 from django.test import RequestFactory
-from backend.controllers.users import signup
+from backend.controllers.users import signup, login, get_user
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 django.setup()
@@ -19,7 +19,6 @@ class UserSignupTest(unittest.TestCase):
         self.client = MongoClient(os.getenv('MONGODB_URI'))
         self.db = self.client[os.getenv('TEST_DB_NAME')]
         self.users_collection = self.db['users']
-        self.users_collection.delete_many({})  # Ensure collection is empty
 
     def tearDown(self):
 
@@ -155,17 +154,177 @@ class UserSignupTest(unittest.TestCase):
         print(f"{response_data['error']}")
 
 # Test Login Function:
+class UserLoginTest(unittest.TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        # establish connection to MongoDB
+        self.client = MongoClient(os.getenv('MONGODB_URI'))
+        self.db = self.client[os.getenv('TEST_DB_NAME')]
+        self.users_collection = self.db['users']
 
-# Test case for successful user login with valid credentials
-# Test case for attempting to log in with an email that doesn't exist
-# Test case for attempting to log in with an incorrect password
-# Test case for handling unexpected exceptions during login
+        # Add a test user to the database
+        self.test_user = {
+            'username': 'testUser',
+            'email': 'testUserValid@example.com',
+            'password': 'testPassword123!'
+        }
+        self.users_collection.insert_one(self.test_user)
+
+    def tearDown(self):
+
+        # Cleanup: Remove the user manually from the collection
+        self.users_collection.delete_one({'email': 'testUserValid@example.com'})
+
+        # close connection to MongoDB
+        self.client.close()
+
+    # Test case for successful user login with valid credentials
+    def test_valid_user_login(self):
+        # User data
+        valid_user_data = {
+            'email': 'testUserValid@example.com',
+            'password': 'testPassword123!'
+        }
+
+        # Create POST request
+        request_body = json.dumps(valid_user_data)
+        request = self.factory.post('/login', request_body, content_type='application/json')
+
+        # Call login function
+        response = login(request)
+
+        # Assert response
+        self.assertEqual(response.status_code, 200)
+        response_data = json.loads(response.content)
+        self.assertIn('message', response_data)
+        self.assertIn('user_id', response_data)
+        self.assertIn('token', response_data)
+        self.assertEqual(response_data['message'], 'Login successful')
+        print(f"{response_data['message']}")
+
+    # Test case for attempting to log in with an email that doesn't exist
+    def test_valid_user_login_invalid_email(self):
+        # User data
+        valid_user_data = {
+            'email': 'invalidTestUser@example.com',
+            'password': 'testPassword123!'
+        }
+
+        # Create POST request
+        request_body = json.dumps(valid_user_data)
+        request = self.factory.post('/login', request_body, content_type='application/json')
+
+        # Call login function
+        response = login(request)
+
+        # Assert response
+        self.assertEqual(response.status_code, 404)
+        response_data = json.loads(response.content)
+        self.assertNotIn('token', response_data)
+        self.assertIn('error', response_data)
+        self.assertEqual(response_data['error'], 'User not found')
+        print(f"{response_data['error']}")
+
+    # Test case for attempting to log in with an incorrect password
+    def test_valid_user_login_invalid_password(self):
+        # User data
+        valid_user_data = {
+            'email': 'testUserValid@example.com',
+            'password': 'testInvalidPassword123!'
+        }
+
+        # Create POST request
+        request_body = json.dumps(valid_user_data)
+        request = self.factory.post('/login', request_body, content_type='application/json')
+
+        # Call login function
+        response = login(request)
+
+        # Assert response
+        self.assertEqual(response.status_code, 401)
+        response_data = json.loads(response.content)
+        self.assertNotIn('token', response_data)
+        self.assertIn('error', response_data)
+        self.assertEqual(response_data['error'], 'Password incorrect')
+        print(f"{response_data['error']}")
 
 # Test Get User Function:
-
 # Test case for retrieving user data with a valid user ID
-# Test case for attempting to retrieve user data with an invalid user ID
-# Test case for handling the case when no user_id parameter is provided
+class GetUserTest(unittest.TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        # establish connection to MongoDB
+        self.client = MongoClient(os.getenv('MONGODB_URI'))
+        self.db = self.client[os.getenv('TEST_DB_NAME')]
+        self.users_collection = self.db['users']
+
+        # Add a test user to the database
+        self.test_user = {
+            'username': 'testUser',
+            'email': 'testUserValid@example.com',
+            'password': 'testPassword123!'
+        }
+        self.users_collection.insert_one(self.test_user)
+
+    def tearDown(self):
+
+        # Cleanup: Remove the user manually from the collection
+        self.users_collection.delete_one({'email': 'testUserValid@example.com'})
+
+        # close connection to MongoDB
+        self.client.close()
+
+    # Test case for successful user login with valid credentials
+    def test_get_valid_user(self):
+        # Get the test user ID
+        test_user_id = str(self.users_collection.find_one({'email': 'testUserValid@example.com'})['_id'])
+
+        # Create GET request with user_id as query parameter
+        request = self.factory.get('/get-user', {'user_id': test_user_id})
+
+        # Call get_user function
+        response = get_user(request)
+
+        # Assert response
+        self.assertEqual(response.status_code, 200)
+        response_data = json.loads(response.content)
+        self.assertIn('user_data', response_data)
+        print(f"{response_data['user_data']}")
+
+    # Test case for attempting to retrieve user data with an invalid user ID
+    def test_get_invalid_user(self):
+        # Get the test user ID
+        test_user_id = str(self.users_collection.find_one({'email': 'testUserValid@example.com'})['_id'])
+
+        # Create GET request with user_id as query parameter
+        request = self.factory.get('/get-user', {'user_id': f'{test_user_id}Invalid'})
+
+        # Call get_user function
+        response = get_user(request)
+
+        # Assert response
+        self.assertEqual(response.status_code, 404)
+        response_data = json.loads(response.content)
+        self.assertIn('error', response_data)
+        print(f"{response_data['error']}")
+
+    # Test case for handling the case when no user_id parameter is provided
+    def test_get_no_user_id(self):
+        # Get the test user ID
+        test_user_id = ''
+
+        # Create GET request with user_id as query parameter
+        request = self.factory.get('/get-user', {'user_id': test_user_id})
+
+        # Call get_user function
+        response = get_user(request)
+
+        # Assert response
+        self.assertEqual(response.status_code, 400)
+        response_data = json.loads(response.content)
+        self.assertIn('error', response_data)
+        print(f"{response_data['error']}")
+
 # Test case for handling unexpected exceptions during user data retrieval
 
 # Test Validator:

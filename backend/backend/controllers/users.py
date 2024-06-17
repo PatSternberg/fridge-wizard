@@ -6,6 +6,7 @@ from utility.db_handler import DBHandler
 from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from bson.objectid import ObjectId
+from bson.errors import InvalidId
 from backend.middleware.validator import Validator
 from auth.auth import generate_token
 
@@ -137,6 +138,8 @@ def get_user(request):
                 return JsonResponse({'user_data': user_data}, status=200)
             else:
                 return JsonResponse({'error': 'User not found'}, status=404)
+        except InvalidId:
+            return JsonResponse({'error': 'Invalid user ID'}, status=404)
         except Exception as e:
             return JsonResponse({'error': f'Something went wrong: {str(e)}'}, status=500)
     else:
