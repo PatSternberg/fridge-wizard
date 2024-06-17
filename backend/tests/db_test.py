@@ -117,24 +117,26 @@ class DBCreateUserTest(unittest.TestCase):
         self.collection = self.db['users']
 
     def tearDown(self):
-        # Clean up MongoDB
-        self.db.drop_collection('users')
+
+        # Cleanup: Remove any user manually from the collection
+        self.collection.delete_many({'email': {'$regex': '^testUser'}})
+        # close connection to MongoDB
         self.client.close()
 
     def test_signup_user(self):
-        # define the creation of an user
+        # define the creation of a user
         user_data = {
-            "_id": "someId",
-            "username": "someUsername1",
-            "password": "somePassword1",
-            "email" : "someEmail1"
+            "_id": "testId",
+            "username": "testUser",
+            "password": "testPassword1",
+            "email" : "testUserEmail"
         }
 
         # add the new user document to the DB
         self.collection.insert_one(user_data)
 
         # retrieve user document from DB
-        retrieved_document = self.collection.find_one({"_id": "someId"})
+        retrieved_document = self.collection.find_one({"_id": "testId"})
 
         # Assert that the retrieved document matches the test document
         self.assertEqual(retrieved_document["_id"], user_data["_id"])
@@ -155,8 +157,9 @@ class DBUserLoginTest(unittest.TestCase):
         self.collection = self.db['users']
 
     def tearDown(self):
-        # Clean up MongoDB
-        self.db.drop_collection('users')
+        # Cleanup: Remove any user manually from the collection
+        self.collection.delete_many({'email': {'$regex': '^testUser'}})
+        # close connection to MongoDB
         self.client.close()
 
     def simulate_login_request(self, login_data):
@@ -194,17 +197,17 @@ class DBUserLoginTest(unittest.TestCase):
     def test_login_user(self):
         # define the creation of a user
         user_data = {
-            "_id": "someId",
-            "username": "someUsername1",
-            "password": "somePassword1",
-            "email" : "someEmail1"
+            "_id": "testId",
+            "username": "testUser",
+            "password": "testPassword1",
+            "email" : "testUserEmail"
         }
 
         # add the new user document to the DB
         self.collection.insert_one(user_data)
 
         # retrieve user document from DB
-        retrieved_document = self.collection.find_one({"_id": "someId"})
+        retrieved_document = self.collection.find_one({"_id": "testId"})
 
         # Assert that the retrieved document matches the test document
         self.assertEqual(retrieved_document["_id"], user_data["_id"])
