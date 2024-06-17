@@ -22,8 +22,13 @@ class UserSignupTest(unittest.TestCase):
         self.users_collection.delete_many({})  # Ensure collection is empty
 
     def tearDown(self):
-        # Drop the test database
-        self.client.drop_database(os.getenv('TEST_DB_NAME'))
+
+        # Cleanup: Remove the user manually from the collection
+        self.users_collection.delete_one({'email': 'testUserValid@example.com'})
+
+        # Cleanup: Remove the user manually from the collection
+        self.users_collection.delete_one({'email': 'testUserExisting@example.com'})
+
         # close connection to MongoDB
         self.client.close()
 
@@ -50,9 +55,6 @@ class UserSignupTest(unittest.TestCase):
         self.assertIn('user_id', response_data)
         self.assertEqual(response_data['message'], 'User created successfully')
         print(f"{response_data['message']}")
-        
-        # Cleanup: Remove the user manually from the collection
-        self.users_collection.delete_one({'email': 'testUserValid@example.com'})
 
     # Test case for attempting to sign up with an email that already exists
     def test_duplicate_email_signup(self):
@@ -81,14 +83,76 @@ class UserSignupTest(unittest.TestCase):
         response_data = json.loads(response.content)
         self.assertIn('error', response_data)
         self.assertEqual(response_data['error'], 'Email already in use.')
-        print(f"{response_data['message']}")
+        print(f"{response_data['error']}")
 
-        # Cleanup: Remove the user manually from the collection
-        self.users_collection.delete_one({'email': 'testUserExisting@example.com'})
+    # Test case for attempting to sign up with an invalid email format
+    def test_invalid_email_signup(self):
+        # User data
+        existing_user_data = {
+            'username': 'testUserValid',
+            'email': 'testUserInvalidEmail',
+            'password': 'testValidPassword!'
+        }
 
-# Test case for attempting to sign up with an invalid email format
-# Test case for attempting to sign up with an invalid password (e.g., too short, no special characters, etc.)
-# Test case for handling unexpected exceptions during signup
+        # Create initial POST request to simulate existing user
+        request_body = json.dumps(existing_user_data)
+        request = self.factory.post('/signup', request_body, content_type='application/json')
+
+        # Call signup function for existing user
+        response = signup(request)
+        
+        # Assert response for duplicate email
+        self.assertEqual(response.status_code, 400)
+        response_data = json.loads(response.content)
+        self.assertIn('error', response_data)
+        self.assertEqual(response_data['error'], "['Invalid email format.']")
+        print(f"{response_data['error']}")
+
+    # Test case for attempting to sign up with an invalid password (e.g. no special characters)
+    def test_invalid_password_signup_no_special_character(self):
+        # User data
+        existing_user_data = {
+            'username': 'testUserValid',
+            'email': 'testUserValid@example.com',
+            'password': 'testInvalidPassword'
+        }
+
+        # Create initial POST request to simulate existing user
+        request_body = json.dumps(existing_user_data)
+        request = self.factory.post('/signup', request_body, content_type='application/json')
+
+        # Call signup function for existing user
+        response = signup(request)
+        
+        # Assert response for duplicate email
+        self.assertEqual(response.status_code, 400)
+        response_data = json.loads(response.content)
+        self.assertIn('error', response_data)
+        self.assertEqual(response_data['error'], "['This password must contain at least one special character.']")
+        print(f"{response_data['error']}")
+
+    # Test case for attempting to sign up with an invalid password (e.g. too short)
+    def test_invalid_password_signup_too_short(self):
+        # User data
+        existing_user_data = {
+            'username': 'testUserValid',
+            'email': 'testUserValid@example.com',
+            'password': 'Invalid'
+        }
+
+        # Create initial POST request to simulate existing user
+        request_body = json.dumps(existing_user_data)
+        request = self.factory.post('/signup', request_body, content_type='application/json')
+
+        # Call signup function for existing user
+        response = signup(request)
+        
+        # Assert response for duplicate email
+        self.assertEqual(response.status_code, 400)
+        response_data = json.loads(response.content)
+        self.assertIn('error', response_data)
+        self.assertEqual(response_data['error'], "['This password must contain at least 8 characters.']")
+        print(f"{response_data['error']}")
 
 # Test Login Function:
 

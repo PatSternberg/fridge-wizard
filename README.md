@@ -43,9 +43,11 @@ In a terminal, `cd` to `fridge-wizard/frontend/`. In the CLI, execute `npm insta
 Alternatively, if this doesn't happen automatically; while the servers are running, open your browser of choice and navigate to http://localhost:3000/ to begin using Fridge Wizard.
 
 ## Running tests
-A suite of backend tests are included with Fridge Wizard. All tests files are in `fridge-wizard/backed/tests/` and use Python's unittest library to perform tests.
+A suite of backend and frontend tests are included with Fridge Wizard. All backend tests files are in `fridge-wizard/backend/tests/` and use Python's unittest library to perform tests. All frontend tests files are in `fridge-wizard/frontend/tests/` and use JavaScript's jest library to perform tests. 
 
-To run all tests, `cd` to `fridge-wizard/backend`. In the CLI, execute `python -m unittest discover -v -s tests -p '*_test.py'`.
+To run backend tests, `cd` to `fridge-wizard/backend`. In the CLI, execute `python -m unittest discover -v -s tests -p '*_test.py'`.
+
+To run backend tests, `cd` to `fridge-wizard/frontend`. In the CLI, execute `python -m unittest discover -v -s tests -p '*_test.py'`.
 
 The outcome of each test will be printed in the terminal console.
 
