@@ -15,22 +15,24 @@ django.setup()
 class UserSignupTest(unittest.TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        # establish connection to MongoDB
-        self.client = MongoClient(os.getenv('MONGODB_URI'))
-        self.db = self.client[os.getenv('TEST_DB_NAME')]
-        self.users_collection = self.db['users']
+        try:
+            # establish connection to MongoDB
+            self.client = MongoClient(os.getenv('MONGODB_URI'))
+            self.db = self.client[os.getenv('TEST_DB_NAME')]
+            self.users_collection = self.db['users']
+            # Clean up any existing test users
+            self.users_collection.delete_many({'email': {'$regex': '^testUser'}})
+        except Exception as e:
+            print(f"Database connection error: {e}")
+            self.fail("Failed to connect to the database")
 
     def tearDown(self):
 
-        # Cleanup: Remove the user manually from the collection
-        self.users_collection.delete_one({'email': 'testUserValid@example.com'})
-
-        # Cleanup: Remove the user manually from the collection
-        self.users_collection.delete_one({'email': 'testUserExisting@example.com'})
-
+        # Cleanup: Remove any user manually from the collection
+        self.users_collection.delete_many({'email': {'$regex': '^testUser'}})
         # close connection to MongoDB
         self.client.close()
-
+        
     # Test case for successful user signup with valid input data
     def test_valid_user_signup(self):
         # User data
@@ -157,24 +159,29 @@ class UserSignupTest(unittest.TestCase):
 class UserLoginTest(unittest.TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        # establish connection to MongoDB
-        self.client = MongoClient(os.getenv('MONGODB_URI'))
-        self.db = self.client[os.getenv('TEST_DB_NAME')]
-        self.users_collection = self.db['users']
+        try:
+            # establish connection to MongoDB
+            self.client = MongoClient(os.getenv('MONGODB_URI'))
+            self.db = self.client[os.getenv('TEST_DB_NAME')]
+            self.users_collection = self.db['users']
+            # Clean up any existing test users
+            self.users_collection.delete_many({'email': {'$regex': '^testUser'}})
+            # Add a test user to the database
+            self.test_user = {
+                'username': 'testUser',
+                'email': 'testUserValid@example.com',
+                'password': 'testPassword123!'
+            }
+            self.users_collection.insert_one(self.test_user)
 
-        # Add a test user to the database
-        self.test_user = {
-            'username': 'testUser',
-            'email': 'testUserValid@example.com',
-            'password': 'testPassword123!'
-        }
-        self.users_collection.insert_one(self.test_user)
+        except Exception as e:
+            print(f"Database connection error: {e}")
+            self.fail("Failed to connect to the database")
 
     def tearDown(self):
 
-        # Cleanup: Remove the user manually from the collection
-        self.users_collection.delete_one({'email': 'testUserValid@example.com'})
-
+        # Cleanup: Remove any user manually from the collection
+        self.users_collection.delete_many({'email': {'$regex': '^testUser'}})
         # close connection to MongoDB
         self.client.close()
 
@@ -253,24 +260,29 @@ class UserLoginTest(unittest.TestCase):
 class GetUserTest(unittest.TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        # establish connection to MongoDB
-        self.client = MongoClient(os.getenv('MONGODB_URI'))
-        self.db = self.client[os.getenv('TEST_DB_NAME')]
-        self.users_collection = self.db['users']
-
-        # Add a test user to the database
-        self.test_user = {
-            'username': 'testUser',
-            'email': 'testUserValid@example.com',
-            'password': 'testPassword123!'
-        }
-        self.users_collection.insert_one(self.test_user)
+        try:
+            # establish connection to MongoDB
+            self.client = MongoClient(os.getenv('MONGODB_URI'))
+            self.db = self.client[os.getenv('TEST_DB_NAME')]
+            self.users_collection = self.db['users']
+            # Clean up any existing test users
+            self.users_collection.delete_many({'email': {'$regex': '^testUser'}})
+            # Add a test user to the database
+            self.test_user = {
+                'username': 'testUser',
+                'email': 'testUserValid@example.com',
+                'password': 'testPassword123!'
+            }
+            self.users_collection.insert_one(self.test_user)
+            
+        except Exception as e:
+            print(f"Database connection error: {e}")
+            self.fail("Failed to connect to the database")
 
     def tearDown(self):
 
-        # Cleanup: Remove the user manually from the collection
-        self.users_collection.delete_one({'email': 'testUserValid@example.com'})
-
+        # Cleanup: Remove any user manually from the collection
+        self.users_collection.delete_many({'email': {'$regex': '^testUser'}})
         # close connection to MongoDB
         self.client.close()
 
