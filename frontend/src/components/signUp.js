@@ -103,8 +103,8 @@ export default function SignUp({ onBackClick }) {
     <div>
       <div className='welcome-container'>
         <div className='welcome-header'>
-          <div className='back-button'>
-            <button onClick={( onBackClick )}>
+          <div className='back-button' data-testid="back-button">
+            <button onClick={onBackClick}>
                   <ArrowBackIosNewIcon />
             </button>
           </div>
@@ -139,7 +139,7 @@ export default function SignUp({ onBackClick }) {
             {errors.password && <p className="error-message">{errors.password.message}</p>}
           </SimplePasswordField>
 
-          <button className='login-buttons' type='submit'>
+          <button className='login-buttons' type='submit' data-testid='signup-button'>
             Sign up
           </button>
         </form>
