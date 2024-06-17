@@ -1,4 +1,5 @@
 // file: frontend/src/pages/Home.js
+import React from 'react';
 import Welcome from '../components/welcome';
 import LogIn from '../components/logIn';
 import SignUp from '../components/signUp';
