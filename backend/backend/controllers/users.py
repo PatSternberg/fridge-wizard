@@ -1,27 +1,17 @@
-import jwt
-import re
+import json
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.http import JsonResponse
 from utility.db_handler import DBHandler
-
-# from django.contrib.auth.models import User
-
-# I don't think this is used anywhere, commented it out ?
-# user_login_test.py won't run otherwise as this file tries
-# to call the Django model for a "User"; but we made our own ? 
-# please double check / confirm
-
 from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
-from pymongo import MongoClient
-import json
 from bson.objectid import ObjectId
+from bson.errors import InvalidId
 from backend.middleware.validator import Validator
 from auth.auth import generate_token
 
-@csrf_exempt
-def signup(request): # Disables CSRF protection for this view
+@csrf_exempt # Disables CSRF protection for this view
+def signup(request):
     if request.method == 'POST':
         print("Received signup request:", request.body)
         data = json.loads(request.body)
@@ -32,9 +22,6 @@ def signup(request): # Disables CSRF protection for this view
         # Initialize validator
         validator = Validator()
 
-        # Initialize DBHandler
-        db_handler = DBHandler()
-
         try:
             # Validate password
             validator.validate_password(password)
@@ -44,28 +31,17 @@ def signup(request): # Disables CSRF protection for this view
             print("Email validated successfully")
 
             # Get the database handle
-            db, client = db_handler.get_db_handle(db_name='fridge_hero',
-                                       host='localhost',
-                                       port=27017,
-                                       username='',
-                                       password='')
-            
-            # Get the URI from settings.py
-            uri = settings.MONGODB_URI
-            print("URI =", uri)
-            # Create a MongoClient instance with the provided URI
-            client = MongoClient(uri)
-            print(client)
-            # Get the database from the client
-            db = client[settings.DB_NAME]
-            print(db)
-            
+            db, client = DBHandler.get_db_handle(db_name='fridge_wizard',
+                                                 host='localhost',
+                                                 port=27017,
+                                                 username='',
+                                                 password='')
+
             users_collection = db['users']
 
             # if the email already exists
             if users_collection.find_one({'email': email}):
                 return JsonResponse({'error': 'Email already in use.'}, status=400)
-
 
             # Insert the new user
             user_id = users_collection.insert_one({
@@ -93,23 +69,12 @@ def login(request):
         email = data.get('email')
         password = data.get('password')
 
-        # Initialize DBHandler
-        db_handler = DBHandler()
-
         # Get the database handle
-        db, client = db_handler.get_db_handle(db_name='fridge_hero',
-                                    host='localhost',
-                                    port=27017,
-                                    username='',
-                                    password='')
-
-        # Replace the above lines with the following to use MongoDB Atlas
-        # Get the URI from settings.py
-        uri = settings.MONGODB_URI
-        # Create a MongoClient instance with the provided URI
-        client = MongoClient(uri)
-        # Get the database from the client
-        db = client[settings.DB_NAME]
+        db, client = DBHandler.get_db_handle(db_name='fridge_wizard',
+                                                host='localhost',
+                                                port=27017,
+                                                username='',
+                                                password='')
 
         users_collection = db['users']
 
@@ -148,23 +113,14 @@ def get_user(request):
         if not user_id:
             return JsonResponse({'error': 'user_id parameter is missing'}, status=400)
         
-        # Initialize DBHandler
-        db_handler = DBHandler()
-
         # Get the database handle
-        db, client = db_handler.get_db_handle(db_name='fridge_hero',
-                                    host='localhost',
-                                    port=27017,
-                                    username='',
-                                    password='')
+        db, client = DBHandler.get_db_handle(db_name='fridge_wizard',
+                                                host='localhost',
+                                                port=27017,
+                                                username='',
+                                                password='')
 
-        # Replace the above lines with the following to use MongoDB Atlas
-        # Get the URI from settings.py
-        uri = settings.MONGODB_URI
-        # Create a MongoClient instance with the provided URI
-        client = MongoClient(uri)
-        # Get the database from the client
-        db = client[settings.DB_NAME]
+        users_collection = db['users']
         
         try:
             # Access the users collection
@@ -182,6 +138,8 @@ def get_user(request):
                 return JsonResponse({'user_data': user_data}, status=200)
             else:
                 return JsonResponse({'error': 'User not found'}, status=404)
+        except InvalidId:
+            return JsonResponse({'error': 'Invalid user ID'}, status=404)
         except Exception as e:
             return JsonResponse({'error': f'Something went wrong: {str(e)}'}, status=500)
     else:
