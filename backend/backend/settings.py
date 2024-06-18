@@ -40,6 +40,10 @@ print("TEST_DB_NAME =", os.getenv('TEST_DB_NAME'))
 DEBUG = os.getenv('DEBUG') == 'False'
 print("DEBUG_STATUS =", os.getenv('DEBUG'))
 
+HOST = os.getenv('HOST')
+MONGODB_PORT = os.getenv('MONGODB_PORT')
+print("MONGODB_PORT =", os.getenv('MONGODB_PORT'))
+
 # Define the port on which Django will run
 PORT = 8000
 

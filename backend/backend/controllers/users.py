@@ -31,9 +31,9 @@ def signup(request):
             print("Email validated successfully")
 
             # Get the database handle
-            db, client = DBHandler.get_db_handle(db_name='fridge_wizard',
-                                                 host='localhost',
-                                                 port=27017,
+            db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+                                                 host=settings.HOST,
+                                                 port=settings.MONGODB_PORT,
                                                  username='',
                                                  password='')
 
