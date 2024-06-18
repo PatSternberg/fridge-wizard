@@ -70,9 +70,9 @@ def login(request):
         password = data.get('password')
 
         # Get the database handle
-        db, client = DBHandler.get_db_handle(db_name='fridge_wizard',
-                                                host='localhost',
-                                                port=27017,
+        db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+                                                host=settings.HOST,
+                                                port=settings.MONGODB_PORT,
                                                 username='',
                                                 password='')
 
@@ -114,9 +114,9 @@ def get_user(request):
             return JsonResponse({'error': 'user_id parameter is missing'}, status=400)
         
         # Get the database handle
-        db, client = DBHandler.get_db_handle(db_name='fridge_wizard',
-                                                host='localhost',
-                                                port=27017,
+        db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+                                                host=settings.HOST,
+                                                port=settings.MONGODB_PORT,
                                                 username='',
                                                 password='')
 
