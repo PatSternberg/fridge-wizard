@@ -63,31 +63,31 @@ export default function LogIn({ onBackClick }) {
           </div>
           <h2>Log in to Fridge Hero</h2>
         </div>
-      <form onSubmit={handleSubmit(submission)}>
-      
-        <SimpleTextField
-          label='Email'
-          name='email'
-          control={control}
-          width={'30%'}
-          >
-        {errors.email && <p className="error-message">{errors.email.message}</p>}
-        </SimpleTextField>
+        <form onSubmit={handleSubmit(submission)}>
+        
+          <SimpleTextField
+            label='Email'
+            name='email'
+            control={control}
+            width={'30%'}
+            >
+          {errors.email && <p className="error-message">{errors.email.message}</p>}
+          </SimpleTextField>
 
-        <SimplePasswordField
-          label='Password'
-          name='password'
-          control={control}
-          width={'30%'}
-          >
-          {errors.password && <p className="error-message">{errors.password.message}</p>}
-        </SimplePasswordField>
+          <SimplePasswordField
+            label='Password'
+            name='password'
+            control={control}
+            width={'30%'}
+            >
+            {errors.password && <p className="error-message">{errors.password.message}</p>}
+          </SimplePasswordField>
 
-        <button className='login-buttons' type='submit' data-testid='login-button'> 
-          Log in
-        </button>
-      </form>
-      <div className="error-container">
+          <button className='login-buttons' type='submit' data-testid='login-button'> 
+            Log in
+          </button>
+        </form>
+        <div className="error-container">
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       </div>
