@@ -51,5 +51,7 @@ To run frontend tests, `cd` to `fridge-wizard/frontend`. In the CLI, execute `np
 
 The outcome of each test will be printed in the terminal console.
 
+To run cypress end to end tests, `cd` to `fridge-wizard/frontend`. In the CLI, execute `npm cy:open`.
+
 ### Building for production
 TK

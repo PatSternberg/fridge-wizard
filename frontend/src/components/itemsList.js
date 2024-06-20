@@ -30,10 +30,10 @@ export default function ItemList({ returnedFridgeData, removeItem }) {
 
                   return (
                       <li key={itemName} className="item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ flex: 1, color: isBeforeToday ? 'red' : 'black' }}>
-                    {isBeforeToday && <span style={{ marginRight: '0.5em' }}>⚠️ Expired </span>}
-                    {itemName}: {formattedDate}
-                  </span>
+                        <span style={{ flex: 1, color: isBeforeToday ? 'red' : 'black' }}>
+                          {isBeforeToday && <span style={{ marginRight: '0.5em' }}>⚠️ Expired </span>}
+                          {itemName}: {formattedDate}
+                        </span>
                         <button onClick={() => removeItem(category, itemName)} className="remove-item-button">−</button>
                       </li>
                   );
