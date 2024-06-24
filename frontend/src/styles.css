@@ -1,3 +1,9 @@
+/* 
+Standard window width sizes
+Mobile: 568px, 667px, 736px, 812px
+Tablet: 1024px
+Laptop/Desktop: 900px, 1080px, 1440px */
+
 .recipes-list-container {
   display: flex;
 }
@@ -39,31 +45,53 @@
   font-family: 'Chopin-Trial-Medium', sans-serif;
 }
 
+/* Landing page styling */
 .home-container {
   display: flex;
+  flex-direction: column;
   height: 84vh;
-  justify-content: center; /* Aligns items horizontally */
-  align-items: center; /* Aligns items vertically */
+  /* Aligns items horizontally */
+  justify-content: center;
+  /* Aligns items vertically */
+  align-items: center;
 }
-.home-element-container {
-  width: 50%;
-  max-width: 600px;
+
+/* Desktop view */
+@media (min-width: 900px) {
+  .home-container {
+    flex-direction: row;
+    height: 84vh;
+  }
 }
-.image-container {
-  position: relative;
-  width: 50%;
-  height: 100%;
-  max-width: 600px;
-  transform: translate(-20%);
-  z-index: 2;
-}
+
 .fridge-image {
-  position: relative;
-  max-width: 100%;
-  top: 4vh;
+  height: 60%;
+  /* top: 4vh;
   left: 6vw;
-  z-index: 2;
+  z-index: 2; */
 }
+
+/* Mobile formatting */
+@media (max-width: 900px) {
+  .fridge-image {
+    padding-top: 10%;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-element-container {
+    padding-bottom: 10%;
+  }
+}
+
+/* Desktop formatting */
+@media (min-width: 900px) {
+  .fridge-image {
+    height: 80%;
+    padding-right: 5%;
+  }
+}
+
 .welcome-container {
   display: flex;
   flex-direction: column;
@@ -414,19 +442,4 @@
   padding: 10px;
   color:#ff6600;
   border-radius: 4px;
-}
-.image-container {
-  position: relative;
-  width: 50%;
-  height: 100%;
-  max-width: 600px;
-  transform: translate(0%);
-  margin-bottom: -15%;
-}
-.fridge-image {
-  position: relative;
-  max-width: 100%;
-  top: -5vh;
-  left: 6vw;
-  z-index: 2;
 }

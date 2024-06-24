@@ -52,9 +52,7 @@ export default function Home() {
     <div>
       <div style={{ width: '100vw', height: '8vh', backgroundColor: 'var(--primary-color)', borderBottomColor: 'black', borderBottomWidth: '2px', borderBottomStyle: 'solid' }}></div>
       <div className='home-container'>
-        <div className='image-container'>
-          <img className='fridge-image' src={FridgeImage} alt="Fridge" />
-        </div>
+        <img className='fridge-image' src={FridgeImage} alt="Fridge" />
         <div className='home-element-container'>
           {componentToRender}
         </div>
