@@ -117,15 +117,14 @@ Laptop/Desktop: 900px, 1080px, 1440px */
 }
 .back-button {
   margin-right: 10px;
-  margin-bottom: 18px;
   z-index: 3;
 }
 .back-button button {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  min-height: 40px;
+  min-width: 30px;
+  min-height: 30px;
   padding: 5px;
   border-radius: 20px;
   border: none;
