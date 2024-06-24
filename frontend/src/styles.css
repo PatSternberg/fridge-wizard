@@ -56,14 +56,6 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   align-items: center;
 }
 
-/* Desktop view */
-@media (min-width: 900px) {
-  .home-container {
-    flex-direction: row;
-    height: 84vh;
-  }
-}
-
 .fridge-image {
   height: 60%;
   /* top: 4vh;
@@ -72,23 +64,30 @@ Laptop/Desktop: 900px, 1080px, 1440px */
 }
 
 /* Mobile formatting */
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .fridge-image {
     padding-top: 10%;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .home-element-container {
     padding-bottom: 10%;
   }
 }
 
 /* Desktop formatting */
-@media (min-width: 900px) {
+@media (min-width: 950px) {
   .fridge-image {
     height: 80%;
     padding-right: 5%;
+  }
+}
+
+@media (min-width: 950px) {
+  .home-container {
+    flex-direction: row;
+    height: 84vh;
   }
 }
 
