@@ -58,9 +58,6 @@ Laptop/Desktop: 900px, 1080px, 1440px */
 
 .fridge-image {
   height: 60%;
-  /* top: 4vh;
-  left: 6vw;
-  z-index: 2; */
 }
 
 /* Mobile formatting */
@@ -170,50 +167,66 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   border-style: solid;
   border-color: var(--primary-color);
 }
+
 /* FRIDGE VIEW */
 .fridge-view-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  flex-direction: row;
+  /* height: 100vh; */
+  flex-direction: column;
   font-family: 'Chopin-Trial-Medium', sans-serif;
 }
-.open-fridge-image-container {
-  width: 50%;
-  margin-left: -30rem;
-  margin-top: -20rem;
-  z-index: 2;
+
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 40px;
+  width: 100%;
+  font-family: 'Bangers', sans-serif;
+  letter-spacing: 2px;
 }
-.open-fridge-image-container button{
+
+.profile-button {
+  margin-right: 10px;
+  z-index: 3;
+}
+
+.profile-button button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 5px;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--secondary-text-color);
+  cursor: pointer;
+}
+.profile-button button:hover {
+  background-color: var(--secondary-text-color);
+  color: var(--primary-color);
+}
+
+.fridge-content-container {
   display: flex;
   flex-direction: row;
-  margin-top: 600px;
-  margin-left: 400px;
-  justify-content: center;
-  text-align: center;
-  width: 60px;
-  height: 60px;
-  font-family: 'Bangers', sans-serif;
-  text-decoration: underline;
-  color: var(--primary-color);
-  background-color: white;
-  border-width: 0px;
-  border-radius: 20px;
-}
-.open-fridge-image-container button:hover{
-  color: var(--secondary-text-color);
-  background-color: var(--primary-color);
-}
-.open-fridge-image {
-  max-width: 100%;
-  z-index: 2;
-}
-.open-fridge-image img{
   width: 100%;
-  margin-left: 8rem;
-  z-index: 2;
 }
+
+.open-fridge-image {
+  height: 400px;
+  align-self: flex-end;
+}
+
+/* Desktop formatting */
+@media (min-width: 950px) {
+  .open-fridge-image {
+    height: 700px;
+  }
+}
+
 .item-list {
   border-color: var(--primary-color);
   border-style: solid;
@@ -250,6 +263,19 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   margin-top: 0px;
   padding-left: 10px;
 }
+
+.item-list-buttons {
+  display: flex;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+}
+
+.item-list-buttons button {
+  display: flex;
+  width: 50%;
+}
+
 .item {
   display: flex;
   align-items: center; /* Center items vertically */
@@ -365,9 +391,10 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   background-color: var(--secondary-text-color);
   color: var(--primary-color);
 }
+
 /* PROFILE ICON  */
 .profile-icon-container {
-  position: absolute;
+  /* position: absolute; */
   top: 10px;
   right: 10px;
   text-align: center;

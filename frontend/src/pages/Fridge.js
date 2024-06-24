@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import ItemList from '../components/itemsList';
 import FridgeImage from '../assets/FridgeImg2.png';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Person2Icon from '@mui/icons-material/Person2';
 import { Link } from 'react-router-dom';
-import ProfileIcon from '../assets/ProfileImg.png';
 import '../styles.css';
 
 export default function Fridge() {
@@ -34,6 +34,10 @@ export default function Fridge() {
 
   function navigateToRoot() {
     navigate('/');
+  };
+
+  function navigateToProfile() {
+    navigate('/profile');
   };
 
   // Logic for getting fridge data goes here
@@ -137,30 +141,35 @@ export default function Fridge() {
           console.error('Error removing item:', error);
         });
   }
-    
+   
   return (
-      <div className='fridge-view-container'>
-        <h2>My fridge</h2>
-        <div className='open-fridge-image-container'>
-          <button onClick={navigateToRoot}>
-          <ArrowBackIosNewIcon /><h1>FH</h1>
-          </button>
-          <div className='open-fridge-image'>
-            <img src={FridgeImage} alt="Fridge"/>
+    <div className='fridge-view-container'>
+      <div className='navbar'>
+        <div className='welcome-header'>
+          <div className='back-button' data-testid="back-button">
+            <button onClick={navigateToRoot}>
+              <ArrowBackIosNewIcon />
+            </button>
           </div>
-          <div className='profile-icon-container'>
-             <Link to="/profile">
-                <img src={ProfileIcon} alt="Profile"/>
-              </Link>
-            </div>
+          <div className='profile-button'>
+            <button onClick={navigateToProfile}>
+              <Person2Icon />
+            </button>
+          </div>
+          <h2>My fridge</h2>
         </div>
+      </div>
+      <div className='fridge-content-container'>
+        <img className='open-fridge-image' src={FridgeImage} alt="Fridge"/>
         <div className='item-list'>
           <h1>{showForm ? 'Add Items' : "What's inside?"}</h1>
             {!showForm && (
                 <>
                     <ItemList returnedFridgeData={currentFridgeContents} removeItem={removeItem}/>
-                    <button onClick={toggleForm} className="fridge-form-button">Add Items</button>
-                    <button onClick={getRecipes} className="fridge-form-button">Get Recipes</button>
+                    <div className='item-list-buttons'>
+                      <button onClick={toggleForm} className="fridge-form-button">Add Items</button>
+                      <button onClick={getRecipes} className="fridge-form-button">Get Recipes</button>
+                    </div>
                 </>
             )}
           {showForm && (
@@ -202,5 +211,6 @@ export default function Fridge() {
           )}
         </div>
       </div>
+    </div>
   );
 }
