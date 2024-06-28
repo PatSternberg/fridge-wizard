@@ -48,7 +48,7 @@ export default function LogIn({ onBackClick }) {
         console.error('Error:', error);
       });
     } catch (error) {
-      console.log('Error logging in:', error.message);
+      console.log('⚠️ Error logging in:', error.message);
     }
   }
 

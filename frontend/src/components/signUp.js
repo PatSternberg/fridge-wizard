@@ -31,14 +31,14 @@ export default function SignUp({ onBackClick }) {
       console.log('Begin submission')
       // Validate email format
       if (!data.email.match(/^[\w\.-]+@[\w\.-]+$/)) {
-        setErrorMessage('Invalid email format');
+        setErrorMessage('⚠️ Invalid email format');
         return;
       }
       console.log('Email validation pass')
 
       // Validate password length and special characters
       if (data.password.length < 8 || !/[!@#$%^&*()-_+={}[\]|\\:]/.test(data.password)) {
-        setErrorMessage('Password must be at least 8 characters long and contain at least one special character');
+        setErrorMessage('⚠️ Password must be at least 8 characters long and contain at least one special character');
         return;
       }
       console.log('Password validation pass')
@@ -95,7 +95,7 @@ export default function SignUp({ onBackClick }) {
     } catch (error) {
       console.error('Error signing up:, error.message');
       // Handle error here, set error message, etc.
-      setErrorMessage('Error signing up');
+      setErrorMessage('⚠️ Error signing up');
     }
   }
 

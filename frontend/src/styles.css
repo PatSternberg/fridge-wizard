@@ -295,13 +295,14 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   justify-content: center;
   margin-top: 0px;
   text-align: center;
-  margin-left: 50px;/* Align the error message center horizontally */
 }
+
 .error-message {
-  /* font-family: 'Open Sans', sans-serif; */
-  font-weight: 550 ;
-  color: red;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  color: var(--primary-color);
 }
+
 .fridge-form-button {
   display: flex;
   align-items: center;
