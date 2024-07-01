@@ -9,6 +9,7 @@ from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from backend.middleware.validator import Validator
 from auth.auth import generate_token
+from pymongo import MongoClient
 
 @csrf_exempt # Disables CSRF protection for this view
 def signup(request):
@@ -30,13 +31,24 @@ def signup(request):
             validator.validate_email(email)
             print("Email validated successfully")
 
-            # Get the database handle
-            db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
-                                                 host=settings.HOST,
-                                                 port=settings.MONGODB_PORT,
-                                                 username='',
-                                                 password='')
+            # # Get the database handle
+            # db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+            #                                      host=settings.HOST,
+            #                                      port=settings.MONGODB_PORT,
+            #                                      username='',
+            #                                      password='')
 
+            # users_collection = db['users']
+
+                        # Get the URI from settings.py
+            uri = settings.MONGODB_URI
+            # Create a MongoClient instance with the provided URI
+            client = MongoClient(uri)
+            print(client)
+            # Get the database from the client
+            db = client[settings.DB_NAME]
+            print(db)
+            
             users_collection = db['users']
 
             # if the email already exists
