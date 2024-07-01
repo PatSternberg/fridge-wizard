@@ -35,29 +35,3 @@ export const signup = async (username, email, password) => {
   console.log(`Response is: ${response}`);
   return data;
 };
-
-
-// export const signup = async (username, email, password) => {
-//     const formData = new FormData();
-//     formData.append('username', username);
-//     formData.append('email', email);
-//     formData.append('password', password);
-
-//     console.log("function called");
-
-//     var BACKEND_URL = 'http://127.0.0.1:8000'
-//     const requestOptions = {
-//       method: "POST",
-//       body: formData,
-//     };
-  
-//     const response = await fetch(`${BACKEND_URL}/users/signup/`, requestOptions);
-  
-//     if (!response.ok) {
-//       const data = await response.json(); // Parse response JSON
-//       throw new Error(data.message); // Throw an Error object with the message from the response
-//     }
-  
-//     const data = await response.json();
-//     return data.token;
-//   };

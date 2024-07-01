@@ -295,13 +295,14 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   justify-content: center;
   margin-top: 0px;
   text-align: center;
-  margin-left: 50px;/* Align the error message center horizontally */
 }
+
 .error-message {
-  /* font-family: 'Open Sans', sans-serif; */
-  font-weight: 550 ;
-  color: red;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  color: var(--primary-color);
 }
+
 .fridge-form-button {
   display: flex;
   align-items: center;
@@ -392,61 +393,76 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   color: var(--primary-color);
 }
 
-/* PROFILE ICON  */
-.profile-icon-container {
-  /* position: absolute; */
-  top: 10px;
-  right: 10px;
-  text-align: center;
+/* PROFILE VIEW */
+.user-profile-header {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 32px;
+  border-color: var(--primary-color);
+  border-style: solid;
+  border-width: 0rem;
+  border-bottom-width: 0.3rem;
 }
-.profile-icon-container img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  display: block;
-  margin-bottom: 5px;
+
+.user-profile-header img {
+  max-height: 64px;
+  margin-right: 12px;
+  margin-bottom: 12px;
 }
-/* Profile view */
-.profile-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px;
-}
-.profile-container h2 {
-  color: #FF6600;
-  margin-bottom: 30px;
-  text-align: center;
+
+.user-profile-header h2 {
   font-family: 'Bangers', sans-serif;
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 8px;
 }
+
+.user-profile-container {
+  font-family: 'Chopin-Trial-Medium', sans-serif;
+  max-width: 528px;
+  margin: auto;
+  margin-top: 32px;
+  border-color: var(--primary-color);
+  border-style: solid;
+  border-width: 0.3rem;
+  border-radius: 50px;
+  padding: 50px;
+}
+
+.user-profile-container h2 {
+  text-align: center;
+}
+
 .user-details div {
-  margin-bottom: 30px;
+  margin-bottom: 12px;
 }
+
 .user-details label {
   font-weight: bold;
   color: #333;
   display: block;
 }
+
 .user-details input[type="text"],
 .user-details input[type="email"],
 .user-details input[type="password"] {
   width: 100%;
-  padding: 12px;
   border: 2px solid #ddd;
   border-radius: 8px;
-  outline: none;
-  transition: border-color 0.3s ease-in-out;
-  font-family: 'Bangers', sans-serif;
-  letter-spacing: 0.08rem;
+  padding: 8px;
+  padding-right: 0;
 }
 .user-details input[type="text"]:focus,
 .user-details input[type="email"]:focus,
 .user-details input[type="password"]:focus {
-  border-color: #FF6600;
+  border-color: var(--primary-color);
 }
+
 .user-details button {
   padding: 12px 20px;
-  background-color: #FF6600;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--secondary-text-color);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -454,12 +470,12 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   font-family: 'Bangers', sans-serif;
 }
 .user-details button:hover {
-  background-color: #FF7F00;
+  background-color: var(--primary-color);
 }
 .success-message {
   margin: 10px 0;
   padding: 10px;
-  color:#ff6600;
+  color: var(--primary-color);
   border-radius: 4px;
 }
 .error-message {

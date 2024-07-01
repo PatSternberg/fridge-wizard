@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import FridgeImageSmall from '../assets/FridgeHeroImgSmall.png';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from 'react-router-dom';
-import FridgeImage from '../assets/FridgeImg1.png';
 import '../styles.css';
 
 const UserProfile = () => {
@@ -43,8 +43,8 @@ const UserProfile = () => {
     }
   }, []);
 
-  const navigateToRoot = () => {
-    navigate('/');
+  const navigateToFridge = () => {
+    navigate('/fridge');
   };
 
   const handleSave = () => {
@@ -82,31 +82,29 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <div className='back-button'>
-        <button onClick={navigateToRoot}>
-          <ArrowBackIosNewIcon /><h1>FH</h1>
+    <div className="user-profile-container">
+      <div className='back-button' data-testid="back-button">
+        <button onClick={navigateToFridge}>
+          <ArrowBackIosNewIcon />
         </button>
       </div>
       {userData ? (
-        <div className="profile-content">
-        <div className='image-container'>
-          <img className='fridge-image' src={FridgeImage} alt="Fridge" />
-        </div>
-          <div className="user-details">
+        <div className="user-details">
+          <div className="user-profile-header">
+            <img className='small-fridge-image' src={FridgeImageSmall} alt="Fridge"/>
             <h2>{username ? `${username}'s Profile` : 'User Profile'}</h2>
-            <div>
-              <input type="text" placeholder="username" value={username} onChange={e => setUsername(e.target.value)} />
-            </div>
-            <div>
-              <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
-            </div>
-            <div>
-              <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </div>
-            <div>
-              <button onClick={handleSave}>Save</button>
-            </div>
+          </div>
+          <div>
+            <input type="text" placeholder="New username" value={username} onChange={e => setUsername(e.target.value)} />
+          </div>
+          <div>
+            <input type="email" placeholder="New email" value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <input type="password" placeholder="New password" value={password} onChange={e => setPassword(e.target.value)} />
+          </div>
+          <div>
+            <button onClick={handleSave}>Save</button>
           </div>
           {message && <p className={message.includes('success') ? 'success-message' : 'error-message'}>{message}</p>}
         </div>

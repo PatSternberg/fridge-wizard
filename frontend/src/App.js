@@ -5,7 +5,7 @@ import {Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import Fridge from './pages/Fridge';
 import Recipes from './pages/Recipes';
-import Profile from './pages/profile';
+import Profile from './pages/Profile';
 
 function App() {
   return (
