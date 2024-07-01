@@ -40,7 +40,7 @@ def signup(request):
 
             # users_collection = db['users']
 
-                        # Get the URI from settings.py
+            # Get the URI from settings.py
             uri = settings.MONGODB_URI
             # Create a MongoClient instance with the provided URI
             client = MongoClient(uri)
@@ -81,13 +81,24 @@ def login(request):
         email = data.get('email')
         password = data.get('password')
 
-        # Get the database handle
-        db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
-                                                host=settings.HOST,
-                                                port=settings.MONGODB_PORT,
-                                                username='',
-                                                password='')
+        # # Get the database handle
+        # db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+        #                                         host=settings.HOST,
+        #                                         port=settings.MONGODB_PORT,
+        #                                         username='',
+        #                                         password='')
 
+        # users_collection = db['users']
+
+        # Get the URI from settings.py
+        uri = settings.MONGODB_URI
+        # Create a MongoClient instance with the provided URI
+        client = MongoClient(uri)
+        print(client)
+        # Get the database from the client
+        db = client[settings.DB_NAME]
+        print(db)
+        
         users_collection = db['users']
 
         try:
