@@ -29,21 +29,24 @@ def create(request):
         data = json.loads(request.body)
         storedItems = data.get('storedItems')
         user_id = data.get('user_id')
-        
-        # Get the database handle
-        db, client = get_db_handle(db_name='fridge_hero',
-                                    host='localhost',
-                                    port=27017,
-                                    username='',
-                                    password='')
 
-        # Replace the above lines with the following to use MongoDB Atlas
+        # # Get the database handle
+        # db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+        #                                      host=settings.HOST,
+        #                                      port=settings.MONGODB_PORT,
+        #                                      username='',
+        #                                      password='')
+
+        # users_collection = db['users']
+
         # Get the URI from settings.py
         uri = settings.MONGODB_URI
         # Create a MongoClient instance with the provided URI
         client = MongoClient(uri)
+        print(client)
         # Get the database from the client
         db = client[settings.DB_NAME]
+        print(db)
 
         fridges_collection = db['fridges']
         print('fridge created')
@@ -75,20 +78,23 @@ def get(request):
             return JsonResponse({'error': 'user_id parameter is missing'}, status=400)
 
         
-        # Get the database handle
-        db, client = get_db_handle(db_name='fridge_hero',
-                                    host='localhost',
-                                    port=27017,
-                                    username='',
-                                    password='')
+        # # Get the database handle
+        # db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+        #                                      host=settings.HOST,
+        #                                      port=settings.MONGODB_PORT,
+        #                                      username='',
+        #                                      password='')
 
-        # Replace the above lines with the following to use MongoDB Atlas
+        # users_collection = db['users']
+
         # Get the URI from settings.py
         uri = settings.MONGODB_URI
         # Create a MongoClient instance with the provided URI
         client = MongoClient(uri)
+        print(client)
         # Get the database from the client
         db = client[settings.DB_NAME]
+        print(db)
 
         fridges_collection = db['fridges']
         print('got fridge data')
@@ -120,20 +126,23 @@ def add_items(request, fridge_id):
             data = json.loads(request.body)
             token = data.get('token')
 
-            # Get the database handle
-            db, client = get_db_handle(db_name='fridge_hero',
-                                        host='localhost',
-                                        port=27017,
-                                        username='',
-                                        password='')
+            # # Get the database handle
+            # db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+            #                                      host=settings.HOST,
+            #                                      port=settings.MONGODB_PORT,
+            #                                      username='',
+            #                                      password='')
 
-            # Replace the above lines with the following to use MongoDB Atlas
+            # users_collection = db['users']
+
             # Get the URI from settings.py
             uri = settings.MONGODB_URI
             # Create a MongoClient instance with the provided URI
             client = MongoClient(uri)
+            print(client)
             # Get the database from the client
             db = client[settings.DB_NAME]
+            print(db)
 
             fridges_collection = db['fridges']
             # Verify token is valid
@@ -209,20 +218,23 @@ def remove_items(request, fridge_id):
             item_category = data.get('category')
             item_name = data.get('name')
 
-            # Get the database handle
-            db, client = get_db_handle(db_name='fridge_hero',
-                                        host='localhost',
-                                        port=27017,
-                                        username='',
-                                        password='')
+            # # Get the database handle
+            # db, client = DBHandler.get_db_handle(db_name=settings.DB_NAME,
+            #                                      host=settings.HOST,
+            #                                      port=settings.MONGODB_PORT,
+            #                                      username='',
+            #                                      password='')
 
-            # Replace the above lines with the following to use MongoDB Atlas
+            # users_collection = db['users']
+
             # Get the URI from settings.py
             uri = settings.MONGODB_URI
             # Create a MongoClient instance with the provided URI
             client = MongoClient(uri)
+            print(client)
             # Get the database from the client
             db = client[settings.DB_NAME]
+            print(db)
             
             fridges_collection = db['fridges']
 
@@ -254,12 +266,12 @@ def get_recipes(request):
     if not user_id:
         return JsonResponse({'error': 'user_id parameter is missing!'}, status=400)
     
-    # Get the database handle
-    db, client = get_db_handle(db_name='fridge_hero',
-                                host='localhost',
-                                port=27017,
-                                username='',
-                                password='')
+    # # Get the database handle
+    # db, client = get_db_handle(db_name='fridge_hero',
+    #                             host='localhost',
+    #                             port=27017,
+    #                             username='',
+    #                             password='')
 
     # Replace the above lines with the following to use MongoDB Atlas
     # Get the URI from settings.py
