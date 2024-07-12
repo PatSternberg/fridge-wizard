@@ -379,6 +379,8 @@ Laptop/Desktop: 900px, 1080px, 1440px */
   width: 30px; /* Fixed width */
   height: 30px; /* Fixed height to make it a perfect circle */
   padding: 0; /* Remove padding */
+  padding-left: 1px;
+  padding-bottom: 4px;
   border-radius: 50%; /* Circle shape */
   background-color: var(--primary-color);
   color: var(--secondary-text-color);
